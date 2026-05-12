@@ -6,18 +6,19 @@
 /*   By: luferna3 <luferna3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 06:14:42 by luferna3          #+#    #+#             */
-/*   Updated: 2025/05/20 04:52:30 by luferna3         ###   ########.fr       */
+/*   Updated: 2026/05/13 00:10:07 by luferna3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "libft/libft.h"
-// # include <stdio.h>
+# include "libft.h"
+# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <math.h>
 
 typedef struct s_stack
 {
@@ -63,7 +64,7 @@ void		sorting_array(int *array, int size);
 void		assigning_index(t_stack **stack_a, int *array);
 
 int			find_max_value(t_stack **stack_a);
-void		radix_sort(t_stack **stack_a, t_stack **stack_b, int size);
+void		k_sort(t_stack **stack_a, t_stack **stack_b, int size);
 
 t_stack		*get_stack(int argc, char **argv);
 t_stack		*parse_args(int argc, char **argv);

@@ -5,42 +5,69 @@
 #                                                     +:+ +:+         +:+      #
 #    By: luferna3 <luferna3@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/04/14 23:40:08 by luferna3          #+#    #+#              #
-#    Updated: 2025/05/20 04:49:33 by luferna3         ###   ########.fr        #
+#    Created: 2026/05/13 01:25:43 by luferna3          #+#    #+#              #
+#    Updated: 2026/05/13 01:31:41 by luferna3         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+
+CFLAGS = -Wall -Wextra -Werror -I./include -I./libft
+
 NAME = push_swap
 
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRCS = list_ops.c operations.c parsing.c parsing2.c freeing_ops.c \
-	less_simple_sorting.c simple_sorting.c double_ops.c main.c
+SRC_DIR = ./src
 
-OBJ_FILES = $(SRCS:.c=.o)
+SRCS = \
+	$(SRC_DIR)/list_ops.c \
+	$(SRC_DIR)/operations.c \
+	$(SRC_DIR)/parsing.c \
+	$(SRC_DIR)/parsing2.c \
+	$(SRC_DIR)/freeing_ops.c \
+	$(SRC_DIR)/less_simple_sorting.c \
+	$(SRC_DIR)/simple_sorting.c \
+	$(SRC_DIR)/double_ops.c \
+	$(SRC_DIR)/k_sort.c \
+	$(SRC_DIR)/main.c
+
+OBJS = $(SRCS:.c=.o)
+
+MAKEFLAGS 	+=	--no-print-directory
 
 all: $(LIBFT) $(NAME)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
-$(NAME): $(OBJ_FILES)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ_FILES) $(LIBFT)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
-	rm -f $(OBJ_FILES)
+	rm -f $(OBJS)
 
 fclean: clean
 	$(MAKE) -C $(LIBFT_DIR) fclean
 	rm -f $(NAME)
 
+push:
+	@if [ -z "$(M)" ]; then \
+		printf "$(RED)  Usage: make push M=\"your commit message\"$(RESET)\n"; \
+	else \
+		printf "$(CYAN)$(BOLD)\n  Pushing to remote...$(RESET)\n\n"; \
+		git add . && \
+		git commit -m "$(M)" && \
+		git push && \
+		printf "$(GREEN)$(BOLD)  [Pushed successfully]$(RESET)\n\n"; \
+	fi
+
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean push re

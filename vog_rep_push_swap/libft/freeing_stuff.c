@@ -1,33 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   freeing_stuff.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luferna3 <luferna3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/14 13:23:42 by luferna3          #+#    #+#             */
-/*   Updated: 2025/10/21 22:00:21 by luferna3         ###   ########.fr       */
+/*   Created: 2025/10/21 21:55:51 by luferna3          #+#    #+#             */
+/*   Updated: 2025/10/25 05:32:43 by luferna3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcat(char *dest, const char *src, size_t size)
+void	free_map(char **map, int lines)
 {
-	size_t	destlen;
-	size_t	srclen;
-	size_t	i;
+	int	i;
 
-	destlen = ft_strlen(dest);
-	srclen = ft_strlen(src);
 	i = 0;
-	if (size <= destlen)
-		return (size + srclen);
-	while (src[i] != '\0' && destlen + i < size - 1)
+	while (i < lines)
 	{
-		dest[destlen + i] = src[i];
+		free(map[i]);
 		i++;
 	}
-	dest[destlen + i] = '\0';
-	return (destlen + srclen);
+	free(map);
+}
+
+void	free_array(char **array)
+{
+	int	i;
+
+	i = 0;
+	if (!array)
+		return ;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}
+
+void	free_int_array(int **array, int count)
+{
+	int	i;
+
+	i = 0;
+	if (!array)
+		return ;
+	while (i < count)
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
 }

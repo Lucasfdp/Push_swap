@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luferna3 <luferna3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 06:14:17 by luferna3          #+#    #+#             */
-/*   Updated: 2025/05/24 23:31:10 by lucas            ###   ########.fr       */
+/*   Updated: 2026/05/13 00:05:59 by luferna3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,10 @@ void	handle_sort(t_stack **stack_a, t_stack **stack_b)
 	sorting_array(array, size);
 	assigning_index(stack_a, array);
 	if (check_order(stack_a, size))
+	{
+		free(array);
 		return ;
+	}
 	if (size == 2)
 		swap(stack_a, 'a', 1);
 	else if (size == 3)
@@ -85,7 +88,7 @@ void	handle_sort(t_stack **stack_a, t_stack **stack_b)
 	else if (size == 6)
 		six_nums(stack_a, stack_b);
 	else
-		radix_sort(stack_a, stack_b, size);
+		k_sort(stack_a, stack_b, size);
 	free(array);
 }
 
@@ -113,7 +116,7 @@ int	main(int ac, char **av)
 	if (!a)
 		return (write(2, "Error\n", 6));
 	handle_sort(&a, &b);
-	print_stack(a, 0);
+	//print_stack(a, 0);
 	free_lst(a);
 	free_lst(b);
 	return (0);

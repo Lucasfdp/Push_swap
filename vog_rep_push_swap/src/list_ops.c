@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_list_ops.c                               :+:      :+:    :+:   */
+/*   list_ops.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luferna3 <luferna3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 06:15:08 by luferna3          #+#    #+#             */
-/*   Updated: 2025/05/19 05:12:10 by luferna3         ###   ########.fr       */
+/*   Created: 2025/05/06 06:14:13 by luferna3          #+#    #+#             */
+/*   Updated: 2026/05/13 00:06:52 by luferna3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@ t_stack	*ft_lstnew_ps(int content)
 
 	result = (t_stack *)malloc(sizeof(*result));
 	if (!result)
-	{
 		return (NULL);
-	}
 	result->value = content;
+	result->index = 0;
 	result->next = NULL;
 	return (result);
 }
@@ -32,6 +31,19 @@ void	ft_lstadd_front_ps(t_stack **lst, t_stack *new)
 		return ;
 	new->next = *lst;
 	*lst = new;
+}
+
+void	ft_lstadd_back_ps(t_stack **lst, t_stack *new)
+{
+	t_stack	*lstnode;
+
+	if (!new || !lst)
+		return ;
+	lstnode = ft_lstlast_ps(*lst);
+	if (!lstnode)
+		*lst = new;
+	else
+		lstnode->next = new;
 }
 
 int	ft_lstsize_ps(t_stack *lst)
