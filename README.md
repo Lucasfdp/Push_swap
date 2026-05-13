@@ -109,6 +109,93 @@ This value determines how aggressively elements are pushed and rotated during th
 
 ---
 
+# Radix Sort Algorithm
+
+## How It Works
+
+The Radix Sort algorithm sorts numbers bit by bit using binary representation.
+
+Before sorting begins, all numbers are indexed:
+
+- The smallest number becomes `0`
+- The next smallest becomes `1`
+- And so on...
+
+This simplifies the sorting process and avoids handling large integer values directly.
+
+---
+
+## Phase 1 — Process Each Bit
+
+The algorithm iterates through each bit position starting from the least significant bit (LSB).
+
+For every number in stack A:
+
+- If the current bit is `0` → push to stack B using `pb`
+- If the current bit is `1` → rotate stack A using `ra`
+
+This groups numbers according to their binary representation.
+
+---
+
+## Phase 2 — Push Back to A
+
+After all elements for the current bit have been processed:
+
+1. Push every element from stack B back to stack A using `pa`
+2. Move to the next bit position
+3. Repeat until all bits have been processed
+
+At the end, stack A is fully sorted.
+
+---
+
+# Binary Example
+
+## Indexed Values
+
+```text
+Original: 40 12 3 21
+Indexed :  3  1 0  2
+```
+
+## Binary Representation
+
+```text
+3 = 11
+1 = 01
+0 = 00
+2 = 10
+```
+
+The algorithm sorts numbers one binary digit at a time.
+
+---
+
+# Why Radix Sort Works Well for push_swap
+
+Radix Sort is efficient because:
+
+- It has predictable performance
+- It avoids expensive comparisons
+- It scales well with large datasets
+- It produces a relatively low number of operations
+
+---
+
+# Complexity
+
+| Dataset Size | Performance |
+|---------------|-------------|
+| 100 numbers   | ~700 ops    |
+| 500 numbers   | ~5500 ops   |
+
+---
+
+# Key Advantage
+
+Radix Sort is one of the simplest and most reliable algorithms for `push_swap` because it guarantees sorting in a deterministic number of passes based on the number of bits required to represent the largest index.
+
 # Compilation
 
 ## Clone the repository
