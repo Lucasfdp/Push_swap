@@ -6,7 +6,7 @@
 /*   By: luferna3 <luferna3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 06:14:37 by luferna3          #+#    #+#             */
-/*   Updated: 2026/05/13 00:04:23 by luferna3         ###   ########.fr       */
+/*   Updated: 2026/05/13 04:48:14 by luferna3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,36 @@ t_stack	*parse_args(int ac, char **av)
 	return (stack);
 }
 
-t_stack	*get_stack(int ac, char **av)
+static char	**join_args(int ac, char **av)
 {
-	t_stack	*stack;
 	char	*joined;
 	char	*tmp;
 	char	**args;
 	int		i;
-	int		count;
 
-	stack = NULL;
 	joined = ft_strdup("");
 	if (!joined)
 		return (NULL);
 	i = 1;
 	while (i < ac)
 	{
-		tmp = ft_strjoin(joined, av[i]);
+		tmp = ft_strjoin(joined, av[i++]);
 		free(joined);
 		joined = ft_strjoin(tmp, " ");
 		free(tmp);
-		i++;
 	}
 	args = ft_split(joined, ' ');
 	free(joined);
+	return (args);
+}
+
+t_stack	*get_stack(int ac, char **av)
+{
+	t_stack	*stack;
+	char	**args;
+	int		count;
+
+	args = join_args(ac, av);
 	if (!args)
 		return (NULL);
 	count = 0;

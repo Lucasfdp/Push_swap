@@ -5,57 +5,106 @@
 #                                                     +:+ +:+         +:+      #
 #    By: luferna3 <luferna3@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/05/13 01:25:43 by luferna3          #+#    #+#              #
-#    Updated: 2026/05/13 01:31:41 by luferna3         ###   ########.fr        #
+#    Created: 2025/05/13                                #+#    #+#              #
+#    Updated: 2025/05/13                               ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+NAME		= push_swap
+BONUS_NAME	= checker
 
-CC = cc
+CC			= cc
+CFLAGS		= -Wall -Wextra -Werror
 
-CFLAGS = -Wall -Wextra -Werror -I./include -I./libft
+INCLUDES	= -I./include -I./libft
 
-NAME = push_swap
+LIBFT_DIR	= ./libft
+LIBFT		= $(LIBFT_DIR)/libft.a
 
-LIBFT_DIR = ./libft
-LIBFT = $(LIBFT_DIR)/libft.a
+# ========================= #
+#       COMMON FILES        #
+# ========================= #
 
-SRC_DIR = ./src
+COMMON_SRC = \
+	src/double_ops.c \
+	src/freeing_ops.c \
+	src/k_sort.c \
+	src/less_simple_sorting.c \
+	src/list_ops.c \
+	src/operations.c \
+	src/parsing.c \
+	src/parsing2.c \
+	src/simple_sorting.c
 
-SRCS = \
-	$(SRC_DIR)/list_ops.c \
-	$(SRC_DIR)/operations.c \
-	$(SRC_DIR)/parsing.c \
-	$(SRC_DIR)/parsing2.c \
-	$(SRC_DIR)/freeing_ops.c \
-	$(SRC_DIR)/less_simple_sorting.c \
-	$(SRC_DIR)/simple_sorting.c \
-	$(SRC_DIR)/double_ops.c \
-	$(SRC_DIR)/k_sort.c \
-	$(SRC_DIR)/main.c
+COMMON_OBJ = $(COMMON_SRC:.c=.o)
 
-OBJS = $(SRCS:.c=.o)
+# ========================= #
+#      PUSH_SWAP FILES      #
+# ========================= #
 
-MAKEFLAGS 	+=	--no-print-directory
+PUSH_SWAP_SRC = \
+	src/main.c
+
+PUSH_SWAP_OBJ = $(PUSH_SWAP_SRC:.c=.o)
+
+# ========================= #
+#        BONUS FILES        #
+# ========================= #
+
+BONUS_SRC = \
+	bonus/checker.c \
+	bonus/checker_read.c \
+	bonus/checker_exec.c \
+	bonus/checker_utils.c \
+
+BONUS_OBJ = $(BONUS_SRC:.c=.o)
+
+# ========================= #
+#          RULES            #
+# ========================= #
 
 all: $(LIBFT) $(NAME)
+
+$(NAME): $(COMMON_OBJ) $(PUSH_SWAP_OBJ)
+	$(CC) $(CFLAGS) $(INCLUDES) \
+	$(COMMON_OBJ) $(PUSH_SWAP_OBJ) \
+	-L$(LIBFT_DIR) -lft -lm \
+	-o $(NAME)
+
+checker: $(LIBFT) $(COMMON_OBJ) $(BONUS_OBJ)
+	$(CC) $(CFLAGS) $(INCLUDES) \
+	$(COMMON_OBJ) $(BONUS_OBJ) \
+	-L$(LIBFT_DIR) -lft -lm \
+	-o $(BONUS_NAME)
+
+# ========================= #
+#         LIBFT             #
+# ========================= #
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+# ========================= #
+#       COMPILATION         #
+# ========================= #
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+# ========================= #
+#          CLEAN            #
+# ========================= #
 
 clean:
-	$(MAKE) -C $(LIBFT_DIR) clean
-	rm -f $(OBJS)
+	rm -f $(COMMON_OBJ)
+	rm -f $(PUSH_SWAP_OBJ)
+	rm -f $(BONUS_OBJ)
+	$(MAKE) clean -C $(LIBFT_DIR)
 
 fclean: clean
-	$(MAKE) -C $(LIBFT_DIR) fclean
 	rm -f $(NAME)
+	rm -f $(BONUS_NAME)
+	$(MAKE) fclean -C $(LIBFT_DIR)
 
 push:
 	@if [ -z "$(M)" ]; then \
@@ -69,5 +118,9 @@ push:
 	fi
 
 re: fclean all
+
+# ========================= #
+#          PHONY            #
+# ========================= #
 
 .PHONY: all clean fclean push re

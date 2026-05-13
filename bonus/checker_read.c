@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   checker_read.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luferna3 <luferna3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/01 02:02:44 by lde-medi          #+#    #+#             */
-/*   Updated: 2026/05/13 01:19:07 by luferna3         ###   ########.fr       */
+/*   Created: 2026/05/13 04:39:28 by luferna3          #+#    #+#             */
+/*   Updated: 2026/05/13 04:39:29 by luferna3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-int	ft_isalnum(int c)
+void	read_instructions(t_stack **a, t_stack **b)
 {
-	return (ft_isalpha(c) || ft_isdigit(c));
+	char	*line;
+
+	line = get_next_line(0);
+	while (line)
+	{
+		execute_instruction(line, a, b);
+		free(line);
+		line = get_next_line(0);
+	}
 }

@@ -1,37 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   double_ops.c                                       :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luferna3 <luferna3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 06:37:13 by luferna3          #+#    #+#             */
-/*   Updated: 2026/05/13 04:45:03 by luferna3         ###   ########.fr       */
+/*   Created: 2026/05/13 04:39:21 by luferna3          #+#    #+#             */
+/*   Updated: 2026/05/13 04:39:22 by luferna3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ss(t_stack **a, t_stack **b, int print_op)
+static void	check_result(t_stack *a, t_stack *b)
 {
-	swap(a, 'a', 0);
-	swap(b, 'b', 0);
-	if (print_op)
-		write(1, "ss\n", 3);
+	if (is_sorted(a) && b == NULL)
+		write(1, "OK\n", 3);
+	else
+		write(1, "KO\n", 3);
 }
 
-void	rr(t_stack **a, t_stack **b, int print_op)
+int	main(int argc, char **argv)
 {
-	rotate(a, 'a', 0);
-	rotate(b, 'b', 0);
-	if (print_op)
-		write(1, "rr\n", 3);
-}
+	t_stack	*a;
+	t_stack	*b;
 
-void	rrr(t_stack **a, t_stack **b, int print_op)
-{
-	reverse_rotate(a, 'a', 0);
-	reverse_rotate(b, 'b', 0);
-	if (print_op)
-		write(1, "rrr\n", 4);
+	if (argc < 2)
+		return (0);
+	b = NULL;
+	a = get_stack(argc, argv);
+	if (!a)
+		return (write(2, "Error\n", 6), 1);
+	read_instructions(&a, &b);
+	check_result(a, b);
+	free_lst(a);
+	free_lst(b);
+	return (0);
 }

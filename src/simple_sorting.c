@@ -6,7 +6,7 @@
 /*   By: luferna3 <luferna3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 06:14:46 by luferna3          #+#    #+#             */
-/*   Updated: 2026/05/13 00:04:47 by luferna3         ###   ########.fr       */
+/*   Updated: 2026/05/13 04:46:59 by luferna3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,20 +93,6 @@ void	five_nums(t_stack **stack_a, t_stack **stack_b)
 	bring_to_top(stack_a, smallest_pos(*stack_a), 4);
 	push(stack_a, stack_b, 'b', 1);
 	three_nums(stack_a);
-	push(stack_b, stack_a, 'a', 1);
-	push(stack_b, stack_a, 'a', 1);
-}
-
-void	six_nums(t_stack **stack_a, t_stack **stack_b)
-{
-	bring_to_top(stack_a, smallest_pos(*stack_a), 6);
-	push(stack_a, stack_b, 'b', 1);
-	bring_to_top(stack_a, smallest_pos(*stack_a), 5);
-	push(stack_a, stack_b, 'b', 1);
-	bring_to_top(stack_a, smallest_pos(*stack_a), 4);
-	push(stack_a, stack_b, 'b', 1);
-	three_nums(stack_a);
-	push(stack_b, stack_a, 'a', 1);
 	push(stack_b, stack_a, 'a', 1);
 	push(stack_b, stack_a, 'a', 1);
 }

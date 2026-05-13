@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   double_ops.c                                       :+:      :+:    :+:   */
+/*   checker_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luferna3 <luferna3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 06:37:13 by luferna3          #+#    #+#             */
-/*   Updated: 2026/05/13 04:45:03 by luferna3         ###   ########.fr       */
+/*   Created: 2026/05/13 04:39:25 by luferna3          #+#    #+#             */
+/*   Updated: 2026/05/13 04:39:26 by luferna3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ss(t_stack **a, t_stack **b, int print_op)
+int	is_sorted(t_stack *stack)
 {
-	swap(a, 'a', 0);
-	swap(b, 'b', 0);
-	if (print_op)
-		write(1, "ss\n", 3);
+	while (stack && stack->next)
+	{
+		if (stack->value > stack->next->value)
+			return (0);
+		stack = stack->next;
+	}
+	return (1);
 }
 
-void	rr(t_stack **a, t_stack **b, int print_op)
+void	error_checker(t_stack **a, t_stack **b, char *line)
 {
-	rotate(a, 'a', 0);
-	rotate(b, 'b', 0);
-	if (print_op)
-		write(1, "rr\n", 3);
-}
-
-void	rrr(t_stack **a, t_stack **b, int print_op)
-{
-	reverse_rotate(a, 'a', 0);
-	reverse_rotate(b, 'b', 0);
-	if (print_op)
-		write(1, "rrr\n", 4);
+	free(line);
+	free_lst(*a);
+	free_lst(*b);
+	write(2, "Error\n", 6);
+	exit(1);
 }

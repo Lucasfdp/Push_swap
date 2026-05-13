@@ -6,7 +6,7 @@
 /*   By: luferna3 <luferna3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 06:14:42 by luferna3          #+#    #+#             */
-/*   Updated: 2026/05/13 00:10:07 by luferna3         ###   ########.fr       */
+/*   Updated: 2026/05/13 03:54:47 by luferna3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void		push(t_stack **src, t_stack **dest, char name, int print_op);
 void		swap(t_stack **stack, char name, int print_op);
 void		rotate(t_stack **stack, char name, int print_op);
 void		reverse_rotate(t_stack **stack, char name, int print_op);
-void		ss(t_stack **a, t_stack **b);
-void		rr(t_stack **a, t_stack **b);
-void		rrr(t_stack **a, t_stack **b);
+void		ss(t_stack **a, t_stack **b, int print_op);
+void		rr(t_stack **a, t_stack **b, int print_op);
+void		rrr(t_stack **a, t_stack **b, int print_op);
 
 t_stack		*ft_lstnew_ps(int content);
 void		ft_lstadd_front_ps(t_stack **lst, t_stack *new);
@@ -74,5 +74,12 @@ long long	ft_atoll2(const char *str, int *overflow);
 int			valid_num_check(char *num);
 int			check_order(t_stack **stack_a, int count);
 void		print_stack(t_stack *stack, char name);
+
+//BONUS
+
+void	read_instructions(t_stack **a, t_stack **b);
+void	execute_instruction(char *line, t_stack **a, t_stack **b);
+int		is_sorted(t_stack *stack);
+void	error_checker(t_stack **a, t_stack **b, char *line);
 
 #endif
